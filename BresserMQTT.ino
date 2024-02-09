@@ -21,6 +21,8 @@
 #define mqtt_user ""         
 #define mqtt_password ""
 #define ESPHostname "BresserESP32"
+#define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */ 
+#define TIME_TO_SLEEP 60 /* Time ESP32 will go to sleep (in seconds) */
 
 // (https://remotemonitoringsystems.ca/time-zone-abbreviations.php)
 const char* TZ_INFO    = "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00";
@@ -174,7 +176,7 @@ void setup() {
   delay(5000);
   // Go into deep sleep mode for 60 seconds
   Serial.println("Deep sleep mode for 60 seconds");
-  esp_sleep_enable_timer_wakeup(10e6);
+  esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   esp_deep_sleep_start();
 }
 
